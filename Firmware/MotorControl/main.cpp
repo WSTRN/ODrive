@@ -270,19 +270,22 @@ static void rtos_main(void*) {
     }
 
     // Setup motors (DRV8301 SPI transactions here)
-    for(auto& axis : axes){
-        axis.motor_.setup();
-    }
+    // for(auto& axis : axes){
+    //     axis.motor_.setup();
+    // }
+    axes[0].motor_.setup();
 
     // Setup encoders (Starts encoder SPI transactions)
-    for(auto& axis : axes){
-        axis.encoder_.setup();
-    }
+    // for(auto& axis : axes){
+    //     axis.encoder_.setup();
+    // }
+    axes[0].encoder_.setup();
 
     // Setup anything remaining in each axis
-    for(auto& axis : axes){
-        axis.setup();
-    }
+    // for(auto& axis : axes){
+    //     axis.setup();
+    // }
+    axes[0].setup();
 
     // Start PWM and enable adc interrupts/callbacks
     start_adc_pwm();
@@ -298,9 +301,10 @@ static void rtos_main(void*) {
     // Start state machine threads. Each thread will go through various calibration
     // procedures and then run the actual controller loops.
     // TODO: generalize for AXIS_COUNT != 2
-    for (size_t i = 0; i < AXIS_COUNT; ++i) {
-        axes[i].start_thread();
-    }
+    // for (size_t i = 0; i < AXIS_COUNT; ++i) {
+    //     axes[i].start_thread();
+    // }
+    axes[0].start_thread();
 
     start_analog_thread();
 
